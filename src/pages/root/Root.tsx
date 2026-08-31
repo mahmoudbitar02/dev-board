@@ -16,7 +16,7 @@ function Root() {
           </Link>
         </div>
       </nav>
-      <main>
+      <main className="container py-2.5 px-4 mx-auto max-w-7xl flex items-center justify-between">
         <Outlet />
       </main>
     </div>
