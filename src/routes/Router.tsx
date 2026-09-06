@@ -1,6 +1,7 @@
-import Boards from "@/pages/boards/Boards";
-import Profile from "@/pages/profile/Profile";
-import Root from "@/pages/root/Root";
+import Boards from "./../pages/boards/Boards";
+import Profile from "./../pages/profile/Profile";
+import BoardsDetails from "../pages/BoardsDetails/BoardsDetails";
+import Root from "./../pages/root/Root";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -10,14 +11,13 @@ export const router = createBrowserRouter([
 
     children: [
       {
-        path: "/boards",
+        path: "boards",
         element: <Boards />,
-        children: [
-          {
-            path: "/boards/:id",
-            element: <Boards />,
-          },
-        ],
+      },
+
+      {
+        path: "boards/:id",
+        element: <BoardsDetails />,
       },
 
       {
