@@ -1,7 +1,10 @@
 import { Link, Outlet } from "react-router-dom";
 import { LayoutDashboard, CircleUserRound } from "lucide-react";
+import { useUsernameContext } from "../../context/UserContext";
 
 function Root() {
+  const { username } = useUsernameContext();
+
   return (
     <div className="">
       <nav className=" bg-slate-950 p-2 border-b border-primary">
@@ -12,7 +15,7 @@ function Root() {
           </Link>
           <Link to="profile" className="group flex items-center gap-2 ">
             <CircleUserRound className="w-5 h-5 text-slate-300  group-hover:text-primary transition-all duration-200 " />
-            <button className="text-sm hover:cursor-pointer">Nutzer</button>
+            <button className="text-sm hover:cursor-pointer">{username || "Nutzer"}</button>
           </Link>
         </div>
       </nav>

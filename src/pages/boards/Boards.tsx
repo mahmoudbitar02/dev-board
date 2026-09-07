@@ -16,9 +16,7 @@ function Boards() {
         <div className="card flex justify-between border border-black rounded-lg p-6  hover:shadow-md">
           <Link to="1">
             <div className="flex-1 hover:cursor-pointer group">
-              <a href="#" className="font-bold group-hover:underline ">
-                Test
-              </a>
+              <p className="font-bold group-hover:underline ">Test</p>
               <div className="flex gap-0.5 items-center text-sm text-slate-500 mt-2">
                 <p>3 Spalten .</p>
                 <span></span> <p>0 Tasks</p>
@@ -33,9 +31,7 @@ function Boards() {
 
         <div className="card flex justify-between border border-black rounded-lg p-6 hover:shadow-md">
           <div className="flex-1 hover:cursor-pointer group">
-            <a href="#" className="font-bold group-hover:underline ">
-              Test
-            </a>
+            <p className="font-bold group-hover:underline ">Test</p>
             <div className="flex gap-0.5 items-center text-sm text-slate-500 mt-2">
               <p>3 Spalten .</p>
               <span></span> <p>0 Tasks</p>
@@ -49,9 +45,7 @@ function Boards() {
 
         <div className="card flex justify-between border border-black rounded-lg p-6 hover:shadow-md">
           <div className="flex-1 hover:cursor-pointer group">
-            <a href="#" className="font-bold group-hover:underline ">
-              Test
-            </a>
+            <p className="font-bold group-hover:underline ">Test</p>
             <div className="flex gap-0.5 items-center text-sm text-slate-500 mt-2">
               <p>3 Spalten .</p>
               <span></span> <p>0 Tasks</p>
