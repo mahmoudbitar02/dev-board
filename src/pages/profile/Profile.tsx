@@ -1,7 +1,7 @@
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { useUsernameContext } from "../../context/UserContext";
 import { useState } from "react";
+import InputButton from "@/components/InputButton/InputButton";
+import MyButton from "@/components/MyButton/MyButton";
 
 function Profile() {
   const { username, setUsername } = useUsernameContext();
@@ -22,17 +22,8 @@ function Profile() {
           <div className="flex flex-col justify-center items-start  mt-5">
             <h3 className="text-sm font-medium">Name</h3>
 
-            <Input
-              type="text"
-              value={inputUsername}
-              placeholder="Dein Name"
-              className="w-full mt-1 py-5 focus-visible:border-2 focus-visible:border-primary focus-visible:ring-0 "
-              onChange={(e) => setInputUsername(e.target.value)}
-              maxLength={15}
-            />
-            <Button onClick={saveUsername} disabled={!inputUsername.trim()} className="mt-4 text-black hover:cursor-pointer p-5">
-              Speichern
-            </Button>
+            <InputButton value={inputUsername} setValue={setInputUsername} placeholder="Dein Name" />
+            <MyButton onSave={saveUsername} value={inputUsername} buttonText="Speichern" />
           </div>
         </div>
       </div>

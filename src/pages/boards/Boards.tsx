@@ -1,16 +1,16 @@
 // import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/ui/button";
-import { Plus, Trash2Icon } from "lucide-react";
+import { Trash2Icon } from "lucide-react";
+
+import CreateBoardDialog from "../../components/Boards/CreateBoardDialog";
 
 function Boards() {
   return (
     <div className="w-full ">
       <div className="flex justify-between mt-2 items-center">
         <h1 className="text-2xl font-bold">Meine Boards</h1>
-        <Button className="text-black px-3 py-5 cursor-pointer">
-          <Plus className="" /> Neues Board
-        </Button>
+        <CreateBoardDialog />
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-4.5">
         <div className="card flex justify-between border border-black rounded-lg p-6  hover:shadow-md">
