@@ -12,5 +12,11 @@ export type taskType = {
 export type Boards = {
   id: string;
   title: string;
-  tasks: taskType[];
+  tasks: number;
 };
+
+export type BoardAction =
+  | { type: "SET_BOARDS"; payload: Boards[] }
+  | { type: "ADD_BOARD"; payload: Boards }
+  | { type: "REMOVE_BOARD"; payload: string }
+  | { type: "UPDATE_BOARD"; payload: Boards };
