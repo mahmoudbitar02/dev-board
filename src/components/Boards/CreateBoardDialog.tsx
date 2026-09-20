@@ -2,25 +2,26 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 import MyButton from "@/components/MyButton/MyButton";
+import { useBoardContext } from "@/context/BoardContext";
 
 import { Plus } from "lucide-react";
 import InputButton from "@/components/InputButton/InputButton";
 import { useState } from "react";
 
 function CreateBoardDialog() {
+  const { boards, setBoards } = useBoardContext();
   const [boardName, setBoardName] = useState("");
   const [open, setOpen] = useState(false);
 
   function handleCreateBoard() {
     if (!boardName.trim()) return;
 
-    // 1. Board erstellen / im State oder Backend speichern
+    const newBoard = { id: (boards.length + 2).toString(), title: boardName, tasks: 0 };
+    setBoards([...boards, newBoard]);
+    localStorage.setItem("boards", JSON.stringify(boards));
+
     console.log("Board created", { boardName });
-
-    // 2. Eingabefeld leeren
     setBoardName("");
-
-    // 3. FENSTER SCHLIESSEN!
     setOpen(false);
   }
   return (

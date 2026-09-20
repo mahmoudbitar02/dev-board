@@ -1,13 +1,20 @@
 import { ArrowLeft, Pencil, Plus } from "lucide-react";
 import { Button } from "../../components/ui/button";
+import { useBoardContext } from "@/context/BoardContext";
+import { useParams } from "react-router-dom";
 function BoardsDetails() {
+  const { id } = useParams();
+  const { boards } = useBoardContext();
+
+  const boardDetail = boards.filter((board) => board.id === id);
+
   return (
     <div className="flex flex-col gap-6 pt-2">
       <div className="flex gap-4 items-center justify-start">
         <Button variant="ghost" size={"lg"} className="hover:bg-primary-hover hover:cursor-pointer p-2">
           <ArrowLeft className="w-5! h-5!" />
         </Button>
-        <h4 className="text-2xl font-bold">test</h4>
+        <h4 className="text-2xl font-bold">{boardDetail[0].title}</h4>
         <Button variant="ghost" size={"lg"} className="hover:bg-primary-hover hover:cursor-pointer p-2">
           <Pencil className="w-4! h-4!" />
         </Button>
