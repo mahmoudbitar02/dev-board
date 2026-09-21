@@ -7,8 +7,13 @@ import { useBoardContext } from "../../context/BoardContext";
 import CreateBoardDialog from "../../components/Boards/CreateBoardDialog";
 
 function Boards() {
-  const { boards } = useBoardContext();
-  console.log("boards", boards);
+  const { boards, setBoards } = useBoardContext();
+
+  function handleDeleteBoard(e: React.MouseEvent<HTMLButtonElement>, id: string) {
+    const deletedBoard = boards.filter((board) => board.id !== id);
+    console.log(deletedBoard);
+    setBoards(deletedBoard);
+  }
   return (
     <div className="w-full ">
       <div className="flex justify-between mt-2 items-center">
@@ -29,7 +34,10 @@ function Boards() {
               </div>
             </Link>
 
-            <Button className="bg-transparent p-2 text-black hover:bg-primary-hover hover:cursor-pointer group">
+            <Button
+              onClick={(e) => handleDeleteBoard(e, board.id)}
+              className="bg-transparent p-2 text-black hover:bg-primary-hover hover:cursor-pointer group"
+            >
               <Trash2Icon className="w-4 h-4 group-hover:text-red-500" />
             </Button>
           </div>

@@ -14,15 +14,23 @@ function CreateBoardDialog() {
   const [open, setOpen] = useState(false);
 
   function handleCreateBoard() {
-    if (!boardName.trim()) return;
+    const trimedBoardName = boardName.trim();
+    if (!trimedBoardName) return;
 
-    const newBoard = { id: (boards.length + 2).toString(), title: boardName, tasks: 0 };
-    setBoards([...boards, newBoard]);
-    localStorage.setItem("boards", JSON.stringify(boards));
+    const exsistBoard = boards.some((board) => board.title.toLocaleLowerCase() === trimedBoardName.toLocaleLowerCase());
 
-    console.log("Board created", { boardName });
-    setBoardName("");
-    setOpen(false);
+    if (exsistBoard) {
+      alert("Board exsist");
+      return;
+    } else {
+      const newBoard = { id: (boards.length + 2).toString(), title: boardName, tasks: 0 };
+
+      setBoards([...boards, newBoard]);
+      localStorage.setItem("boards", JSON.stringify(boards));
+
+      setBoardName("");
+      setOpen(false);
+    }
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
