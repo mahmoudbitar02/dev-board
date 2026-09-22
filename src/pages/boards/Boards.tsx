@@ -9,10 +9,10 @@ import CreateBoardDialog from "../../components/Boards/CreateBoardDialog";
 function Boards() {
   const { boards, setBoards } = useBoardContext();
 
-  function handleDeleteBoard(e: React.MouseEvent<HTMLButtonElement>, id: string) {
+  function handleDeleteBoard(id: string) {
     const deletedBoard = boards.filter((board) => board.id !== id);
     console.log(deletedBoard);
-    setBoards(deletedBoard);
+    setBoards({ type: "REMOVE_BOARD", payload: id });
   }
   return (
     <div className="w-full ">
@@ -35,7 +35,7 @@ function Boards() {
             </Link>
 
             <Button
-              onClick={(e) => handleDeleteBoard(e, board.id)}
+              onClick={() => handleDeleteBoard(board.id)}
               className="bg-transparent p-2 text-black hover:bg-primary-hover hover:cursor-pointer group"
             >
               <Trash2Icon className="w-4 h-4 group-hover:text-red-500" />

@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import type { Boards } from "@/types/Types";
+import { useEffect, useReducer } from "react";
 import { boardContext } from "./BoardContext";
+import { boardReducer } from "@/hooks/BoardReducer";
 
 export function BoardProvider({ children }: { children: React.ReactNode }) {
   function getBoardsFromLocalStorage() {
@@ -8,7 +8,7 @@ export function BoardProvider({ children }: { children: React.ReactNode }) {
     return boards ? JSON.parse(boards) : [];
   }
 
-  const [boards, setBoards] = useState<Boards[]>(getBoardsFromLocalStorage);
+  const [boards, setBoards] = useReducer(boardReducer, [], getBoardsFromLocalStorage);
 
   useEffect(() => {
     localStorage.setItem("boards", JSON.stringify(boards));

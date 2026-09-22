@@ -1,9 +1,9 @@
 import { createContext, useContext } from "react";
-import type { Boards } from "@/types/Types";
+import type { Boards, BoardAction } from "@/types/Types";
 
 type BoardContextType = {
   boards: Boards[];
-  setBoards: (boards: Boards[]) => void;
+  setBoards: React.Dispatch<BoardAction>;
 };
 
 export const boardContext = createContext<BoardContextType | undefined>(undefined);

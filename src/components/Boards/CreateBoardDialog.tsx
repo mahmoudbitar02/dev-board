@@ -8,6 +8,8 @@ import { Plus } from "lucide-react";
 import InputButton from "@/components/InputButton/InputButton";
 import { useState } from "react";
 
+import { v4 as uuidv4 } from "uuid";
+
 function CreateBoardDialog() {
   const { boards, setBoards } = useBoardContext();
   const [boardName, setBoardName] = useState("");
@@ -23,9 +25,10 @@ function CreateBoardDialog() {
       alert("Board exsist");
       return;
     } else {
-      const newBoard = { id: (boards.length + 2).toString(), title: boardName, tasks: 0 };
+      const newBoard = { id: uuidv4(), title: boardName, tasks: 0 };
+      console.log(newBoard);
 
-      setBoards([...boards, newBoard]);
+      setBoards({ type: "ADD_BOARD", payload: newBoard });
       localStorage.setItem("boards", JSON.stringify(boards));
 
       setBoardName("");
