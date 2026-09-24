@@ -12,7 +12,7 @@ function InputButton({
   maxLength?: number;
 }) {
   return (
-    <div>
+    <div className="w-full">
       <Input
         type="text"
         value={value}

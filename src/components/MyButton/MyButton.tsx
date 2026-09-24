@@ -13,7 +13,7 @@ function MyButton({
   disabled?: boolean;
 }) {
   return (
-    <Button onClick={onSave} disabled={disabled ? !value.trim() : false} className="mt-4 text-black hover:cursor-pointer p-5" variant={variant}>
+    <Button onClick={onSave} disabled={disabled ? !value.trim() : false} className=" text-black hover:cursor-pointer p-5" variant={variant}>
       {buttonText}
     </Button>
   );

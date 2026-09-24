@@ -7,9 +7,18 @@ function Profile() {
   const { username, setUsername } = useUsernameContext();
   const [inputUsername, setInputUsername] = useState(username);
 
+  const [isSaved, setIsSaved] = useState(false);
+
   function saveUsername() {
+    if (!inputUsername.trim()) return;
+
     setUsername(inputUsername);
     console.log("Username saved", { username: inputUsername });
+
+    setIsSaved(true);
+    setTimeout(() => {
+      setIsSaved(false);
+    }, 5000);
   }
   return (
     <div className="w-full max-w-115 mx-auto flex flex-col pt-2">
@@ -23,7 +32,10 @@ function Profile() {
             <h3 className="text-sm font-medium">Name</h3>
 
             <InputButton value={inputUsername} setValue={setInputUsername} placeholder="Dein Name" />
-            <MyButton onSave={saveUsername} value={inputUsername} buttonText="Speichern" />
+            <div className="flex justify-center items-center gap-2 mt-4">
+              <MyButton onSave={saveUsername} value={inputUsername} buttonText="Speichern" />
+              {isSaved && <span className="text-sm font-medium text-green-600 animate-in fade-in duration-300">Gespeichert!</span>}
+            </div>
           </div>
         </div>
       </div>

@@ -29,7 +29,6 @@ function CreateBoardDialog() {
       console.log(newBoard);
 
       setBoards({ type: "ADD_BOARD", payload: newBoard });
-      localStorage.setItem("boards", JSON.stringify(boards));
 
       setBoardName("");
       setOpen(false);
@@ -61,7 +60,9 @@ function CreateBoardDialog() {
             }
           />
 
-          <MyButton onSave={handleCreateBoard} value={boardName} buttonText="Erstellen" variant="default" disabled={!boardName.trim()} />
+          <div className="mt-4">
+            <MyButton onSave={handleCreateBoard} value={boardName} buttonText="Erstellen" variant="default" disabled={!boardName.trim()} />
+          </div>
         </div>
       </DialogContent>
     </Dialog>
