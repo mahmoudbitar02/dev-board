@@ -29,7 +29,7 @@ function Boards() {
                 <p className="font-bold group-hover:underline ">{board.title}</p>
                 <div className="flex gap-0.5 items-center text-sm text-slate-500 mt-2">
                   <p>3 Spalten .</p>
-                  <span></span> <p>{board.tasks} Tasks</p>
+                  <span></span> <p>{board.tasks.length} Tasks</p>
                 </div>
               </div>
             </Link>

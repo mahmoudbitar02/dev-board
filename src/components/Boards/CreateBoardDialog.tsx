@@ -25,7 +25,7 @@ function CreateBoardDialog() {
       alert("Board exsist");
       return;
     } else {
-      const newBoard = { id: uuidv4(), title: boardName, tasks: 0 };
+      const newBoard = { id: uuidv4(), title: boardName, tasks: [] };
       console.log(newBoard);
 
       setBoards({ type: "ADD_BOARD", payload: newBoard });

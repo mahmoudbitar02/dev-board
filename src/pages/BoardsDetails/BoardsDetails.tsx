@@ -1,21 +1,49 @@
 import { ArrowLeft, Pencil, Plus } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { useBoardContext } from "@/context/BoardContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 function BoardsDetails() {
   const { id } = useParams();
   const { boards } = useBoardContext();
+  const currentBoard = boards.find((board) => board.id === id);
+  const navigate = useNavigate();
 
-  const boardDetail = boards.filter((board) => board.id === id);
+  function handleEditBoardTitle(id: string | undefined) {
+    console.log(id);
+  }
+
+  if (!currentBoard) {
+    return (
+      <div className="p-4 text-center flex flex-col items-center justify-center w-full">
+        <p>Board nicht gefunden.</p>
+        <Button onClick={() => navigate("/boards")} className="mt-2">
+          Zurück zur Übersicht
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-6 pt-2">
       <div className="flex gap-4 items-center justify-start">
-        <Button variant="ghost" size={"lg"} className="hover:bg-primary-hover hover:cursor-pointer p-2">
+        <Button
+          onClick={() => {
+            navigate(-1);
+          }}
+          variant="ghost"
+          size={"lg"}
+          className="hover:bg-primary-hover hover:cursor-pointer p-2"
+        >
           <ArrowLeft className="w-5! h-5!" />
         </Button>
-        <h4 className="text-2xl font-bold">{boardDetail[0].title}</h4>
-        <Button variant="ghost" size={"lg"} className="hover:bg-primary-hover hover:cursor-pointer p-2">
+        <h4 className="text-2xl font-bold">{currentBoard?.title}</h4>
+
+        <Button
+          onClick={() => handleEditBoardTitle(currentBoard?.id)}
+          variant="ghost"
+          size={"lg"}
+          className="hover:bg-primary-hover hover:cursor-pointer p-2"
+        >
           <Pencil className="w-4! h-4!" />
         </Button>
       </div>
@@ -34,6 +62,7 @@ function BoardsDetails() {
             <div className="text-muted-foreground text-xs">Kein Tasks vorhanden</div>
           </div>
         </div>
+
         <div className="card border border-black rounded-lg flex flex-col min-h-40 w-72 bg-gray-50">
           <div className="flex flex-col items-center justify-between  py-2">
             <div className="  border-black border-b w-full flex justify-between items-center py-3 px-4">

@@ -1,6 +1,6 @@
 export type TaskStatus = "todo" | "in-progress" | "done";
 
-export type taskType = {
+export type Task = {
   id: string;
   title: string;
   description: string;
@@ -12,7 +12,7 @@ export type taskType = {
 export type Boards = {
   id: string;
   title: string;
-  tasks: number;
+  tasks: Task[];
 };
 
 export type BoardAction =
