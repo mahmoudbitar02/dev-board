@@ -1,19 +1,13 @@
-import { ArrowLeft, Pencil, Plus } from "lucide-react";
+import { ArrowLeft, Pencil } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { useBoardContext } from "@/context/BoardContext";
 import { useNavigate, useParams } from "react-router-dom";
-import type { Columns } from "@/types/Types";
+import Tasks from "@/components/Tasks/Tasks";
 
-const COLUMNS: Columns[] = [
-  { id: "todo", title: "Todo" },
-  { id: "in-progress", title: "in Progress" },
-  { id: "done", title: "Done" },
-];
 function BoardsDetails() {
   const { id } = useParams();
   const { boards } = useBoardContext();
   const currentBoard = boards.find((board) => board.id === id);
-  console.log(currentBoard);
   const navigate = useNavigate();
 
   function handleEditBoardTitle(id: string | undefined) {
@@ -55,44 +49,7 @@ function BoardsDetails() {
           <Pencil className="w-4! h-4!" />
         </Button>
       </div>
-
-      <div className="flex flex-wrap gap-4  justify-start items-stretch">
-        {COLUMNS.map((column) => {
-          const tasks = currentBoard.tasks.filter((task) => task.status === column.id);
-
-          return (
-            <div key={column.id} className="card border border-black rounded-lg flex flex-col min-h-40  w-72 bg-gray-50">
-              <div className="flex flex-col items-center justify-between py-2">
-                <div className="  border-black border-b w-full flex justify-between items-center py-3 px-4">
-                  <div className="flex gap-2 items-center">
-                    <h5 className="font-semibold text-sm">{column.title}</h5>
-                    <span className="text-muted-foreground text-sm">{tasks.length}</span>
-                  </div>
-                  <Plus className="w-4 h-4" />
-                </div>
-
-                <div className="text-muted-foreground text-xs">
-                  {tasks.length === 0 ? (
-                    <div className="text-muted-foreground text-xs text-center py-4">Keine Tasks vorhanden</div>
-                  ) : (
-                    tasks.map((task) => (
-                      <div key={task.id}>
-                        <div className=" border border-black rounded-lg m-2 p-4">
-                          <p>{task.id}</p>
-                          <p>{task.userName}</p>
-                          <p>{task.description}</p>
-                          <p>{task.status}</p>
-                          <p>{task.deadline}</p>
-                        </div>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      <Tasks currentBoard={currentBoard} />
     </div>
   );
 }
