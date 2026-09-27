@@ -20,3 +20,5 @@ export type BoardAction =
   | { type: "ADD_BOARD"; payload: Boards }
   | { type: "REMOVE_BOARD"; payload: string }
   | { type: "UPDATE_BOARD"; payload: Boards };
+
+export type Columns = { id: string; title: string };
