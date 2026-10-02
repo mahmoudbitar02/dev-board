@@ -1,5 +1,5 @@
 function CreateTask() {
-  return <div>task</div>;
+  return <div></div>;
 }
 
 export default CreateTask;

@@ -19,13 +19,20 @@ function Tasks({ currentBoard }: TasksProps) {
 
         return (
           <div key={column.id} className="card border border-black rounded-lg flex flex-col min-h-40  w-72 bg-gray-50">
-            <div className="flex flex-col items-center justify-between py-2">
+            <div className="flex flex-col items-center justify-between">
               <div className="  border-black border-b w-full flex justify-between items-center py-3 px-4">
                 <div className="flex gap-2 items-center">
                   <h5 className="font-semibold text-sm">{column.title}</h5>
                   <span className="text-muted-foreground text-sm">{tasks?.length}</span>
                 </div>
-                <Plus className="w-4 h-4" />
+                <button
+                  className="hover:cursor-pointer hover:bg-primary-hover p-2"
+                  onClick={() => {
+                    console.log("TWST");
+                  }}
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
               </div>
 
               <div className="text-muted-foreground text-xs">
