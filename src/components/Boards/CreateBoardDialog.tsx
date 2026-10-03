@@ -39,17 +39,18 @@ function CreateBoardDialog() {
       <DialogTrigger
         render={
           <Button className="text-black px-3 py-5 cursor-pointer">
-            <Plus className="" /> Neues Board
+            <Plus />
+            Neues Board
           </Button>
         }
-      ></DialogTrigger>
+      />
 
       <DialogContent className="w-full max-w-lg!">
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold">Neues Board erstellen</DialogTitle>
           <DialogDescription>Gib dem Board einen Namen. Es werden automatisch drei Spalten angelegt (To Do, In Progress, Done).</DialogDescription>
         </DialogHeader>
-        <InputButton value={boardName} setValue={setBoardName} placeholder="Board Name" />
+        <InputButton id="boardName" value={boardName} setValue={setBoardName} placeholder="Board Name" />
 
         <div className="flex justify-end gap-2">
           <DialogClose

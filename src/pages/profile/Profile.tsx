@@ -31,7 +31,7 @@ function Profile() {
           <div className="flex flex-col justify-center items-start  mt-5">
             <h3 className="text-sm font-medium">Name</h3>
 
-            <InputButton value={inputUsername} setValue={setInputUsername} placeholder="Dein Name" />
+            <InputButton id="username" value={inputUsername} setValue={setInputUsername} placeholder="Dein Name" />
             <div className="flex justify-center items-center gap-2 mt-4">
               <MyButton onSave={saveUsername} value={inputUsername} buttonText="Speichern" />
               {isSaved && <span className="text-sm font-medium text-green-600 animate-in fade-in duration-300">Gespeichert!</span>}

@@ -1,5 +1,5 @@
 import type { Boards, Columns } from "@/types/Types";
-import { Plus } from "lucide-react";
+import CreateTask from "../CreateTask/CreateTask";
 
 const COLUMNS: Columns[] = [
   { id: "todo", title: "Todo" },
@@ -25,14 +25,7 @@ function Tasks({ currentBoard }: TasksProps) {
                   <h5 className="font-semibold text-sm">{column.title}</h5>
                   <span className="text-muted-foreground text-sm">{tasks?.length}</span>
                 </div>
-                <button
-                  className="hover:cursor-pointer hover:bg-primary-hover p-2"
-                  onClick={() => {
-                    console.log("TWST");
-                  }}
-                >
-                  <Plus className="w-4 h-4" />
-                </button>
+                <CreateTask currentBoard={currentBoard} column={column} />
               </div>
 
               <div className="text-muted-foreground text-xs">
