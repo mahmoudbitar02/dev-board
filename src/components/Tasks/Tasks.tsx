@@ -18,7 +18,7 @@ function Tasks({ currentBoard }: TasksProps) {
         const tasks = currentBoard?.tasks.filter((task) => task.status === column.id);
 
         return (
-          <div key={column.id} className="card border border-black rounded-lg flex flex-col min-h-40  w-72 bg-gray-50">
+          <div key={column.id} className="card border border-black rounded-lg flex flex-col min-h-40 w-72 bg-gray-50 ">
             <div className="flex flex-col items-center justify-between">
               <div className="  border-black border-b w-full flex justify-between items-center py-3 px-4">
                 <div className="flex gap-2 items-center">

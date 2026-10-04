@@ -10,6 +10,7 @@ import type { Task } from "@/types/Types";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
+import { useBoardContext } from "@/context/BoardContext";
 
 const initialTaskState: Task = {
   id: "",
@@ -21,7 +22,9 @@ const initialTaskState: Task = {
 };
 
 function CreateTask({ currentBoard, column }: { currentBoard: Boards; column: { id: string; title: string } }) {
+  const { setBoards } = useBoardContext();
   const { username } = useUsernameContext();
+  console.log(currentBoard.tasks);
 
   function handleChange(field: keyof typeof initialTaskState, value: string) {
     setTaskData((prev) => ({ ...prev, [field]: value }));
@@ -38,6 +41,9 @@ function CreateTask({ currentBoard, column }: { currentBoard: Boards; column: { 
     };
     console.log(newTask);
     setTaskData(initialTaskState);
+    setOpen(false);
+    currentBoard.tasks.push(newTask);
+    setBoards({ type: "UPDATE_BOARD", payload: currentBoard });
   }
   return (
     <div>
