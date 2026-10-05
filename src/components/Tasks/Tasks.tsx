@@ -35,11 +35,12 @@ function Tasks({ currentBoard }: TasksProps) {
                   tasks?.map((task) => (
                     <div key={task.id}>
                       <div className=" border border-black rounded-lg m-2 p-4">
-                        <p>{task.id}</p>
-                        <p>{task.userName}</p>
-                        <p>{task.description}</p>
-                        <p>{task.status}</p>
-                        <p>{task.deadline}</p>
+                        <div className="flex flex-col gap-0.2">
+                          <h5>{task.userName}</h5>
+                          <p>{task.description}</p>
+                          <p>{task.status}</p>
+                          <p>{task.deadline}</p>
+                        </div>
                       </div>
                     </div>
                   ))
