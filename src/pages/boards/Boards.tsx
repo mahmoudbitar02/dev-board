@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { Trash2Icon } from "lucide-react";
 import { useBoardContext } from "../../context/BoardContext";
-
 import CreateBoardDialog from "../../components/Boards/CreateBoardDialog";
 
 function Boards() {

@@ -1,5 +1,6 @@
 import type { Boards, Columns } from "@/types/Types";
 import CreateTask from "../CreateTask/CreateTask";
+import Draggable from "../Draggable/Draggable";
 
 const COLUMNS: Columns[] = [
   { id: "todo", title: "Todo" },
@@ -32,18 +33,7 @@ function Tasks({ currentBoard }: TasksProps) {
                 {tasks?.length === 0 ? (
                   <div className="text-muted-foreground text-xs text-center py-4">Keine Tasks vorhanden</div>
                 ) : (
-                  tasks?.map((task) => (
-                    <div key={task.id}>
-                      <div className=" border border-black rounded-lg m-2 p-4">
-                        <div className="flex flex-col gap-0.2">
-                          <h5>{task.userName}</h5>
-                          <p>{task.description}</p>
-                          <p>{task.status}</p>
-                          <p>{task.deadline}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))
+                  tasks?.map((task) => <Draggable task={task} key={task.id} />)
                 )}
               </div>
             </div>
