@@ -3,6 +3,7 @@ import CreateTask from "../CreateTask/CreateTask";
 import Draggable from "../Draggable/Draggable";
 import { DragDropProvider } from "@dnd-kit/react";
 import Droppable from "../Droppable/Droppable";
+import { useBoardContext } from "@/context/BoardContext";
 
 const COLUMNS: Columns[] = [
   { id: "todo", title: "Todo" },
@@ -15,9 +16,32 @@ type TasksProps = {
 };
 
 function Tasks({ currentBoard }: TasksProps) {
+  const { setBoards } = useBoardContext();
   return (
     <div className="flex flex-wrap gap-4  justify-start items-stretch">
-      <DragDropProvider>
+      <DragDropProvider
+        onDragEnd={(event) => {
+          if (event.canceled || event.operation.target === undefined) return;
+          const { source, target } = event.operation;
+          console.log("Drag ended from", source?.id, "to", target?.id);
+          const taskId = source?.id;
+          const newStatus = target?.id as "todo" | "in-progress" | "done";
+          const updatedTask = currentBoard.tasks.find((task) => task.id === taskId);
+          if (updatedTask && newStatus) {
+            setBoards({
+              type: "UPDATE_BOARD",
+              payload: {
+                ...currentBoard,
+                tasks: updatedTask
+                  ? currentBoard.tasks.map((task) => (task.id === taskId ? { ...task, status: newStatus } : task))
+                  : currentBoard.tasks,
+              },
+            });
+            console.log("Updated task:", updatedTask);
+            console.log("New status:", newStatus);
+          }
+        }}
+      >
         {COLUMNS.map((column) => {
           const tasks = currentBoard?.tasks.filter((task) => task.status === column.id);
 
