@@ -4,6 +4,7 @@ import Draggable from "../Draggable/Draggable";
 import { DragDropProvider } from "@dnd-kit/react";
 import Droppable from "../Droppable/Droppable";
 import { useBoardContext } from "@/context/BoardContext";
+import { useState } from "react";
 
 const COLUMNS: Columns[] = [
   { id: "todo", title: "Todo" },
@@ -17,10 +18,15 @@ type TasksProps = {
 
 function Tasks({ currentBoard }: TasksProps) {
   const { setBoards } = useBoardContext();
+  const [isDragging, setIsDragging] = useState(false);
   return (
     <div className="flex flex-wrap gap-4  justify-start items-stretch">
       <DragDropProvider
+        onDragStart={() => {
+          setIsDragging(true);
+        }}
         onDragEnd={(event) => {
+          setIsDragging(false);
           if (event.canceled || event.operation.target === undefined) return;
           const { source, target } = event.operation;
           console.log("Drag ended from", source?.id, "to", target?.id);
@@ -46,25 +52,21 @@ function Tasks({ currentBoard }: TasksProps) {
           const tasks = currentBoard?.tasks.filter((task) => task.status === column.id);
 
           return (
-            <Droppable id={column.id} key={column.id}>
-              <div className="card border border-black rounded-lg flex flex-col min-h-40 w-72 bg-gray-50 ">
-                <div className="flex flex-col items-center justify-between">
-                  <div className="  border-black border-b w-full flex justify-between items-center py-3 px-4">
-                    <div className="flex gap-2 items-center">
-                      <h5 className="font-semibold text-sm">{column.title}</h5>
-                      <span className="text-muted-foreground text-sm">{tasks?.length}</span>
-                    </div>
-                    <CreateTask currentBoard={currentBoard} column={column} />
-                  </div>
-
-                  <div className="text-muted-foreground text-xs">
-                    {tasks?.length === 0 ? (
-                      <div className="text-muted-foreground text-xs text-center py-4">Keine Tasks vorhanden</div>
-                    ) : (
-                      tasks?.map((task) => <Draggable task={task} key={task.id} />)
-                    )}
-                  </div>
+            <Droppable id={column.id} key={column.id} isGlobalDragging={isDragging}>
+              <div className="  border-black border-b w-full flex justify-between items-center py-3 px-4">
+                <div className="flex gap-2 items-center">
+                  <h5 className="font-semibold text-sm">{column.title}</h5>
+                  <span className="text-muted-foreground text-sm">{tasks?.length}</span>
                 </div>
+                <CreateTask currentBoard={currentBoard} column={column} />
+              </div>
+
+              <div className="text-muted-foreground text-xs w-full">
+                {tasks?.length === 0 ? (
+                  <div className="text-muted-foreground text-xs text-center py-4">Keine Tasks vorhanden</div>
+                ) : (
+                  tasks?.map((task) => <Draggable task={task} key={task.id} />)
+                )}
               </div>
             </Droppable>
           );

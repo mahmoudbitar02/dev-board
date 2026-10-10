@@ -37,7 +37,7 @@ function CreateTask({ currentBoard, column }: { currentBoard: Boards; column: { 
     const newTask: Task = {
       ...taskData,
       id: uuidv4(),
-      status: column.title.toLowerCase() as "todo" | "in-progress" | "done",
+      status: column.id.toLowerCase() as "todo" | "in-progress" | "done",
     };
     console.log(newTask);
     setTaskData(initialTaskState);
