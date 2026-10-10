@@ -5,7 +5,10 @@ function Droppable({ id, children, isGlobalDragging }: { id: string; children: R
     id: id,
   });
   return (
-    <div ref={ref} className="card border rounded-lg flex flex-col min-h-50 w-72 bg-gray-50 overflow-hidden relative transition-all border-black ">
+    <div
+      ref={ref}
+      className="card border rounded-lg flex flex-col min-h-80 w-85 min-w-72 bg-gray-50 overflow-hidden relative transition-all border-black "
+    >
       {children}
 
       {isGlobalDragging && (

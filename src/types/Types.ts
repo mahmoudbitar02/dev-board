@@ -19,6 +19,7 @@ export type BoardAction =
   | { type: "SET_BOARDS"; payload: Boards[] }
   | { type: "ADD_BOARD"; payload: Boards }
   | { type: "REMOVE_BOARD"; payload: string }
-  | { type: "UPDATE_BOARD"; payload: Boards };
+  | { type: "UPDATE_BOARD"; payload: Boards }
+  | { type: "REMOVE_TASK"; payload: string };
 
 export type Columns = { id: string; title: string };

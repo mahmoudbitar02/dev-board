@@ -55,7 +55,7 @@ function CreateTask({ currentBoard, column }: { currentBoard: Boards; column: { 
             </button>
           }
         ></DialogTrigger>
-        <DialogContent className="w-full max-w-lg! px-6 py-10">
+        <DialogContent className="w-full max-w-lg! px-6 py-10 ">
           <DialogHeader>
             <DialogTitle>Neue Task erstellen</DialogTitle>
             <DialogDescription>Fill out the details for your new task.</DialogDescription>

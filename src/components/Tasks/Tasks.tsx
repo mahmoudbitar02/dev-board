@@ -20,7 +20,7 @@ function Tasks({ currentBoard }: TasksProps) {
   const { setBoards } = useBoardContext();
   const [isDragging, setIsDragging] = useState(false);
   return (
-    <div className="flex flex-wrap gap-4  justify-start items-stretch">
+    <div className="flex flex-wrap gap-4 justify-center items-stretch">
       <DragDropProvider
         onDragStart={() => {
           setIsDragging(true);
