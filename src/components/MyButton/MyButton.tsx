@@ -5,15 +5,22 @@ function MyButton({
   buttonText,
   variant,
   disabled,
+  style,
 }: {
   onSave?: () => void;
   value: string;
   buttonText: string;
   variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
   disabled?: boolean;
+  style?: string;
 }) {
   return (
-    <Button onClick={onSave} disabled={disabled ? !value.trim() : false} className=" text-black hover:cursor-pointer p-5" variant={variant}>
+    <Button
+      onClick={onSave}
+      className={style ? style : "text-black hover:cursor-pointer p-5"}
+      disabled={disabled ? !value.trim() : false}
+      variant={variant}
+    >
       {buttonText}
     </Button>
   );

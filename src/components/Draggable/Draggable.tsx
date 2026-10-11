@@ -1,28 +1,18 @@
 import { useDraggable } from "@dnd-kit/react";
 import type { Task } from "@/types/Types";
-import { CircleUserRound, CalendarDays, Trash2Icon } from "lucide-react";
-import { Button } from "../ui/button";
-import { useBoardContext } from "@/context/BoardContext";
+import { CircleUserRound, CalendarDays } from "lucide-react";
+
+import DeleteDialog from "../Delete/DeleteDialog";
 
 function Draggable({ task }: { task: Task }) {
-  const { setBoards } = useBoardContext();
   const { ref, handleRef, isDragging } = useDraggable({
     id: task.id,
   });
 
-  function handleDeleteTask(id: string) {
-    console.log(" from draggable" + id);
-    setBoards({ type: "REMOVE_TASK", payload: id });
-  }
   return (
     <div ref={ref} className={` ${isDragging ? "opacity-50" : ""}`}>
       <div className="flex gap-3 border border-black rounded-lg m-2 p-4 bg-white relative">
-        <Button
-          onClick={() => handleDeleteTask(task.id)}
-          className="bg-transparent p-2 text-black hover:bg-white hover:cursor-pointer group absolute right-2 top-3"
-        >
-          <Trash2Icon className="w-3 h-3 group-hover:text-red-500" />
-        </Button>
+        <DeleteDialog deleteText={"Task Löschen?"} id={task.id} />
         <div ref={handleRef} className="cursor-grab mb-2 text-black h-1">
           :::
         </div>

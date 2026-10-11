@@ -7,7 +7,6 @@ export function boardReducer(state: Boards[], action: BoardAction) {
     case "ADD_BOARD":
       return [...state, action.payload];
     case "REMOVE_BOARD":
-      console.log(action.payload);
       return state.filter((board) => board.id !== action.payload);
     case "UPDATE_BOARD":
       return state.map((board) => (board.id === action.payload.id ? action.payload : board));
