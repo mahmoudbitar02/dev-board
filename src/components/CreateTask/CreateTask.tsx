@@ -11,6 +11,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
 import { useBoardContext } from "@/context/BoardContext";
+import { showToast } from "@/Utils/utils";
 
 const initialTaskState: Task = {
   id: "",
@@ -44,6 +45,7 @@ function CreateTask({ currentBoard, column }: { currentBoard: Boards; column: { 
     setOpen(false);
     currentBoard.tasks.push(newTask);
     setBoards({ type: "UPDATE_BOARD", payload: currentBoard });
+    showToast("success", `Task ${newTask.title} wurde erfolgreich erstellt`);
   }
   return (
     <div>

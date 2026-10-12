@@ -5,16 +5,21 @@ import { Button } from "../ui/button";
 import { useBoardContext } from "@/context/BoardContext";
 import MyButton from "../MyButton/MyButton";
 
+import { showToast } from "@/Utils/utils";
+
 function DeleteDialog({ id, deleteText }: { id: string; deleteText: string }) {
-  const { setBoards } = useBoardContext();
+  const { boards, setBoards } = useBoardContext();
   const [open, setOpen] = useState(false);
 
   function handleDeleteTask(id: string) {
-    //// ich muss hier die unterschiede zwischen board-id und task-id finden damit der korrekte setBoards() aufgerufen wird
-    if (id === "bc33463f-3415-46e8-a851-90f32f55df99") {
+    if (id.startsWith("board")) {
+      const deletedBoard = boards.find((board) => id === board.id);
+
       setBoards({ type: "REMOVE_BOARD", payload: id });
+      if (deletedBoard) showToast("error", `Board ${deletedBoard.title} wurde gelöscht`);
     } else {
       setBoards({ type: "REMOVE_TASK", payload: id });
+      showToast("error", `Task wurde gelöscht`);
     }
   }
   return (
