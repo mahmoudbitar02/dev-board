@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
 import { useBoardContext } from "@/context/BoardContext";
 import { showToast } from "@/Utils/utils";
+// import { useParams } from "react-router-dom";
 
 const initialTaskState: Task = {
   id: "",
@@ -23,16 +24,16 @@ const initialTaskState: Task = {
 };
 
 function CreateTask({ currentBoard, column }: { currentBoard: Boards; column: { id: string; title: string } }) {
+  // const { id } = useParams();
   const { setBoards } = useBoardContext();
   const { username } = useUsernameContext();
-  console.log(currentBoard.tasks);
+  const [taskData, setTaskData] = useState<Task>(initialTaskState);
+  const [open, setOpen] = useState(false);
+  // const testBoard = boards.find((board) => board.id === id);
 
   function handleChange(field: keyof typeof initialTaskState, value: string) {
     setTaskData((prev) => ({ ...prev, [field]: value }));
   }
-
-  const [taskData, setTaskData] = useState<Task>(initialTaskState);
-  const [open, setOpen] = useState(false);
 
   function handleCreateTask() {
     const newTask: Task = {
@@ -40,12 +41,12 @@ function CreateTask({ currentBoard, column }: { currentBoard: Boards; column: { 
       id: uuidv4(),
       status: column.id.toLowerCase() as "todo" | "in-progress" | "done",
     };
-    console.log(newTask);
+    if (!newTask) return;
     setTaskData(initialTaskState);
     setOpen(false);
-    currentBoard.tasks.push(newTask);
+    currentBoard.tasks.push(newTask); // hier konnte man den currentBoard aus dem url bekommen, aber ich habe die lösung so gemacht
     setBoards({ type: "UPDATE_BOARD", payload: currentBoard });
-    showToast("success", `Task ${newTask.title} wurde erfolgreich erstellt`);
+    showToast("success", `Task "${newTask.title}" wurde erfolgreich erstellt`);
   }
   return (
     <div>
@@ -78,7 +79,7 @@ function CreateTask({ currentBoard, column }: { currentBoard: Boards; column: { 
               />
             </Field>
             <Field>
-              <select value={taskData.userName} onChange={(e) => handleChange("userName", e.target.value)}>
+              <select id="userName" value={taskData.userName} onChange={(e) => handleChange("userName", e.target.value)}>
                 <option value="Niemand">Niemand</option>
                 <option value={username}>{username}</option>
               </select>

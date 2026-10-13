@@ -12,7 +12,7 @@ function Draggable({ task }: { task: Task }) {
   return (
     <div ref={ref} className={` ${isDragging ? "opacity-50" : ""}`}>
       <div className="flex gap-3 border border-black rounded-lg m-2 p-4 bg-white relative">
-        <DeleteDialog deleteText="Task Löschen?" id={task.id} />
+        <DeleteDialog taskTitle={task.title} deleteText="Task Löschen?" id={task.id} />
         <div ref={handleRef} className="cursor-grab mb-2 text-black h-1">
           :::
         </div>

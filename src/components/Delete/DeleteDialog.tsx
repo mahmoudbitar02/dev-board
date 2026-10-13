@@ -7,7 +7,7 @@ import MyButton from "../MyButton/MyButton";
 
 import { showToast } from "@/Utils/utils";
 
-function DeleteDialog({ id, deleteText }: { id: string; deleteText: string }) {
+function DeleteDialog({ id, deleteText, taskTitle }: { id: string; deleteText: string; taskTitle?: string }) {
   const { boards, setBoards } = useBoardContext();
   const [open, setOpen] = useState(false);
 
@@ -15,11 +15,13 @@ function DeleteDialog({ id, deleteText }: { id: string; deleteText: string }) {
     if (id.startsWith("board")) {
       const deletedBoard = boards.find((board) => id === board.id);
 
-      setBoards({ type: "REMOVE_BOARD", payload: id });
-      if (deletedBoard) showToast("error", `Board ${deletedBoard.title} wurde gelöscht`);
+      if (deletedBoard) {
+        setBoards({ type: "REMOVE_BOARD", payload: id });
+        showToast("error", `Board "${deletedBoard.title}" wurde gelöscht`);
+      }
     } else {
       setBoards({ type: "REMOVE_TASK", payload: id });
-      showToast("error", `Task wurde gelöscht`);
+      showToast("error", `Task "${taskTitle}" wurde gelöscht`);
     }
   }
   return (

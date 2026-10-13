@@ -12,7 +12,8 @@ export function boardReducer(state: Boards[], action: BoardAction) {
       return state.map((board) => (board.id === action.payload.id ? action.payload : board));
 
     case "REMOVE_TASK":
-      console.log("id from reducer" + action.payload);
       return state.map((board) => ({ ...board, tasks: board.tasks ? board.tasks.filter((task) => task.id !== action.payload) : [] }));
+    default:
+      return state;
   }
 }
