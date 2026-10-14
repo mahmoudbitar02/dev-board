@@ -34,7 +34,7 @@ function DeleteDialog({ id, deleteText, taskTitle }: { id: string; deleteText: s
             </Button>
           }
         >
-          Open Popover
+          open
         </PopoverTrigger>
         <PopoverContent align="end" className={"w-full"}>
           <PopoverHeader>
