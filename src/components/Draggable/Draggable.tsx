@@ -3,6 +3,7 @@ import type { Task } from "@/types/Types";
 import { CircleUserRound, CalendarDays } from "lucide-react";
 
 import DeleteDialog from "../Delete/DeleteDialog";
+import CreateTask from "../CreateTask/CreateTask";
 
 function Draggable({ task }: { task: Task }) {
   const { ref, handleRef, isDragging } = useDraggable({
@@ -18,7 +19,9 @@ function Draggable({ task }: { task: Task }) {
         </div>
 
         <div className="flex flex-col gap-1 ">
-          <h5 className="font-semibold text-sm text-black hover:underline hover:cursor-pointer ">{task.title}</h5>
+          <h5 className="font-semibold text-sm text-black hover:underline hover:cursor-pointer ">
+            <CreateTask taskEdit task={task} />
+          </h5>
           <p>{task.description}</p>
           <div className="flex gap-1 items-center">
             {task.userName === "" ? "" : <CircleUserRound className="w-3 h-3" />}

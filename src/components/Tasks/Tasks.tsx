@@ -58,7 +58,7 @@ function Tasks({ currentBoard }: TasksProps) {
                   <h5 className="font-semibold text-sm">{column.title}</h5>
                   <span className="text-muted-foreground text-sm">{tasks?.length}</span>
                 </div>
-                <CreateTask currentBoard={currentBoard} column={column} />
+                <CreateTask taskEdit={false} column={column} />
               </div>
 
               <div className="text-muted-foreground text-xs w-full">
