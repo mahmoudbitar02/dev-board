@@ -11,6 +11,8 @@ function BoardsDetails() {
   const navigate = useNavigate();
 
   function handleEditBoardTitle(id: string | undefined) {
+    if (!id) return;
+
     console.log(id);
   }
 

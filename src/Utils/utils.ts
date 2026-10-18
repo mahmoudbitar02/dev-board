@@ -6,3 +6,15 @@ export function showToast(toastType: string, toastText: string) {
     description: toastText,
   });
 }
+
+export function isPastDate(dateString: string): boolean {
+  if (!dateString) return false;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const deadLine = new Date(dateString);
+  deadLine.setHours(0, 0, 0, 0);
+
+  return deadLine.getDate() < today.getDate();
+}

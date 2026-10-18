@@ -4,6 +4,7 @@ import { CircleUserRound, CalendarDays } from "lucide-react";
 
 import DeleteDialog from "../Delete/DeleteDialog";
 import CreateTask from "../CreateTask/CreateTask";
+import { isPastDate } from "@/Utils/utils";
 
 function Draggable({ task }: { task: Task }) {
   const { ref, handleRef, isDragging } = useDraggable({
@@ -27,9 +28,15 @@ function Draggable({ task }: { task: Task }) {
             {task.userName === "" ? "" : <CircleUserRound className="w-3 h-3" />}
             <p>{task.userName}</p>
           </div>
-          <div className="flex gap-1 items-center">
+          <div className={isPastDate(task.deadline) ? "flex gap-1 items-center text-red-500 font-bold" : "flex gap-1 items-center"}>
             <CalendarDays className="w-3 h-3" />
-            <p>{task.deadline}</p>
+            <p>
+              {new Date(task.deadline).toLocaleDateString("de-DE", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })}
+            </p>
           </div>
         </div>
       </div>

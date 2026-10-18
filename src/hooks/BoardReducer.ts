@@ -9,7 +9,7 @@ export function boardReducer(state: Boards[], action: BoardAction) {
     case "REMOVE_BOARD":
       return state.filter((board) => board.id !== action.payload);
     case "UPDATE_BOARD":
-      return state.map((board) => (board.id === action.payload.id ? action.payload : board));
+      return state.map((board) => (board.id === action.payload?.id ? action.payload : board));
 
     case "REMOVE_TASK":
       return state.map((board) => ({ ...board, tasks: board.tasks ? board.tasks.filter((task) => task.id !== action.payload) : [] }));
