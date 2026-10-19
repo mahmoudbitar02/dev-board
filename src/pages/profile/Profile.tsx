@@ -2,6 +2,7 @@ import { useUsernameContext } from "../../context/UserContext";
 import { useState } from "react";
 import InputButton from "@/components/InputButton/InputButton";
 import MyButton from "@/components/MyButton/MyButton";
+import { showToast } from "@/Utils/utils";
 
 function Profile() {
   const { username, setUsername } = useUsernameContext();
@@ -10,7 +11,10 @@ function Profile() {
   const [isSaved, setIsSaved] = useState(false);
 
   function saveUsername() {
-    if (!inputUsername.trim()) return;
+    if (!inputUsername.trim()) {
+      showToast("warning", "please add name");
+      return;
+    }
 
     setUsername(inputUsername);
     console.log("Username saved", { username: inputUsername });
@@ -18,7 +22,7 @@ function Profile() {
     setIsSaved(true);
     setTimeout(() => {
       setIsSaved(false);
-    }, 5000);
+    }, 2000);
   }
   return (
     <div className="w-full max-w-115 mx-auto flex flex-col pt-2">
@@ -31,9 +35,9 @@ function Profile() {
           <div className="flex flex-col justify-center items-start  mt-5">
             <h3 className="text-sm font-medium">Name</h3>
 
-            <InputButton id="username" value={inputUsername} setValue={setInputUsername} placeholder="Dein Name" />
+            <InputButton maxLength={30} id="username" value={inputUsername} setValue={setInputUsername} placeholder="Dein Name" />
             <div className="flex justify-center items-center gap-2 mt-4">
-              <MyButton onSave={saveUsername} value={inputUsername} buttonText="Speichern" />
+              <MyButton disabled={!inputUsername.trim()} onSave={saveUsername} value={inputUsername} buttonText="Speichern" />
               {isSaved && <span className="text-sm font-medium text-green-600 animate-in fade-in duration-300">Gespeichert!</span>}
             </div>
           </div>

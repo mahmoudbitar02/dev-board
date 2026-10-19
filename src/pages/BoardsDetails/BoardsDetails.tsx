@@ -1,19 +1,43 @@
-import { ArrowLeft, Pencil } from "lucide-react";
+import { ArrowLeft, Pencil, Check, X } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { useBoardContext } from "@/context/BoardContext";
 import { useNavigate, useParams } from "react-router-dom";
 import Tasks from "@/components/Tasks/Tasks";
+import { useState } from "react";
+import InputButton from "@/components/InputButton/InputButton";
 
 function BoardsDetails() {
   const { id } = useParams();
   const { boards } = useBoardContext();
+  const [editBoard, setEditBoard] = useState(false);
+  const [boardName, setBoardName] = useState("");
   const currentBoard = boards.find((board) => board.id === id);
   const navigate = useNavigate();
 
   function handleEditBoardTitle(id: string | undefined) {
     if (!id) return;
+    if (!currentBoard) return;
+    console.log(currentBoard.title);
 
-    console.log(id);
+    setBoardName(currentBoard.title);
+    setEditBoard(true);
+  }
+
+  function saveBoardName() {
+    const trimedBoardName = boardName.trim();
+    if (!trimedBoardName) return;
+
+    const exsistBoard = boards.some((board) => board.title.toLocaleLowerCase() === trimedBoardName.toLocaleLowerCase());
+
+    if (exsistBoard) {
+      alert("Board name ist vergeben");
+      return;
+    } else {
+      if (!currentBoard) return;
+
+      currentBoard.title = boardName;
+      setEditBoard(false);
+    }
   }
 
   if (!currentBoard) {
@@ -40,16 +64,38 @@ function BoardsDetails() {
         >
           <ArrowLeft className="w-5! h-5!" />
         </Button>
-        <h4 className="text-2xl font-bold">{currentBoard?.title}</h4>
+        {!editBoard ? (
+          <div className="flex gap-4 items-center justify-start">
+            <h4 className="text-2xl font-bold">{currentBoard.title}</h4>
+            <Button
+              onClick={() => handleEditBoardTitle(currentBoard.id)}
+              variant="ghost"
+              size={"lg"}
+              className="hover:bg-primary-hover hover:cursor-pointer p-2"
+            >
+              <Pencil className="w-4! h-4!" />
+            </Button>
+          </div>
+        ) : (
+          <div className="flex justify-center items-center gap-2 w-80">
+            <InputButton id="boardName" value={boardName} setValue={setBoardName} placeholder="Board Name" />
 
-        <Button
-          onClick={() => handleEditBoardTitle(currentBoard?.id)}
-          variant="ghost"
-          size={"lg"}
-          className="hover:bg-primary-hover hover:cursor-pointer p-2"
-        >
-          <Pencil className="w-4! h-4!" />
-        </Button>
+            <Button onClick={saveBoardName} variant="ghost" size={"lg"} className="hover:bg-primary-hover hover:cursor-pointer p-2">
+              <Check className="w-5! h-5!" />
+            </Button>
+
+            <Button
+              onClick={() => {
+                setEditBoard(false);
+              }}
+              variant="ghost"
+              size={"lg"}
+              className="hover:bg-primary-hover hover:cursor-pointer p-2"
+            >
+              <X className="w-5! h-5!" />
+            </Button>
+          </div>
+        )}
       </div>
       <Tasks currentBoard={currentBoard} />
     </div>
