@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Tasks from "@/components/Tasks/Tasks";
 import { useState } from "react";
 import InputButton from "@/components/InputButton/InputButton";
+import { showToast } from "@/Utils/utils";
 
 function BoardsDetails() {
   const { id } = useParams();
@@ -37,6 +38,7 @@ function BoardsDetails() {
 
       currentBoard.title = boardName;
       setEditBoard(false);
+      showToast("success", `Board Name wurde erfolgreich geändert`);
     }
   }
 

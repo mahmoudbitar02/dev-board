@@ -27,7 +27,7 @@ function CreateBoardDialog() {
       return;
     } else {
       const newBoard = { id: `board-${uuidv4()}`, title: boardName, tasks: [] };
-      showToast(newBoard.title, "success");
+      showToast("success", `Board "${newBoard.title}" wurde erfolgreich erstellt`);
 
       setBoards({ type: "ADD_BOARD", payload: newBoard });
 

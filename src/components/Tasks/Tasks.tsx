@@ -29,7 +29,7 @@ function Tasks({ currentBoard }: TasksProps) {
           setIsDragging(false);
           if (event.canceled || event.operation.target === undefined) return;
           const { source, target } = event.operation;
-          console.log("Drag ended from", source?.id, "to", target?.id);
+
           const taskId = source?.id;
           const newStatus = target?.id as "todo" | "in-progress" | "done";
           const updatedTask = currentBoard.tasks.find((task) => task.id === taskId);
@@ -43,8 +43,6 @@ function Tasks({ currentBoard }: TasksProps) {
                   : currentBoard.tasks,
               },
             });
-            console.log("Updated task:", updatedTask);
-            console.log("New status:", newStatus);
           }
         }}
       >
