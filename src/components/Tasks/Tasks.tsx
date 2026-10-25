@@ -27,23 +27,23 @@ function Tasks({ currentBoard }: TasksProps) {
         }}
         onDragEnd={(event) => {
           setIsDragging(false);
-          if (event.canceled || event.operation.target === undefined) return;
+          if (event.canceled || !event.operation.target) return;
           const { source, target } = event.operation;
 
           const taskId = source?.id;
-          const newStatus = target?.id as "todo" | "in-progress" | "done";
-          const updatedTask = currentBoard.tasks.find((task) => task.id === taskId);
-          if (updatedTask && newStatus) {
-            setBoards({
-              type: "UPDATE_BOARD",
-              payload: {
-                ...currentBoard,
-                tasks: updatedTask
-                  ? currentBoard.tasks.map((task) => (task.id === taskId ? { ...task, status: newStatus } : task))
-                  : currentBoard.tasks,
-              },
-            });
-          }
+          const newStatus = target.id as "todo" | "in-progress" | "done";
+          const taskExists = currentBoard.tasks.some((task) => task.id === taskId);
+          if (!taskExists) return;
+
+          const updatedTask = currentBoard.tasks.map((task) => (task.id === taskId ? { ...task, status: newStatus } : task));
+
+          setBoards({
+            type: "UPDATE_BOARD",
+            payload: {
+              ...currentBoard,
+              tasks: updatedTask,
+            },
+          });
         }}
       >
         {COLUMNS.map((column) => {

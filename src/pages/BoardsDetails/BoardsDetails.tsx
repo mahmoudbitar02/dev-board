@@ -9,14 +9,13 @@ import { showToast } from "@/Utils/utils";
 
 function BoardsDetails() {
   const { id } = useParams();
-  const { boards } = useBoardContext();
+  const { boards, setBoards } = useBoardContext();
   const [editBoard, setEditBoard] = useState(false);
   const [boardName, setBoardName] = useState("");
   const currentBoard = boards.find((board) => board.id === id);
   const navigate = useNavigate();
 
-  function handleEditBoardTitle(id: string | undefined) {
-    if (!id) return;
+  function handleEditBoardTitle() {
     if (!currentBoard) return;
     console.log(currentBoard.title);
 
@@ -25,20 +24,30 @@ function BoardsDetails() {
   }
 
   function saveBoardName() {
-    const trimedBoardName = boardName.trim();
-    if (!trimedBoardName) return;
+    const trimmedName = boardName.trim();
+    if (!trimmedName || !currentBoard) return;
 
-    const exsistBoard = boards.some((board) => board.title.toLocaleLowerCase() === trimedBoardName.toLocaleLowerCase());
+    const boardExists = boards.some(
+      (board) => board.id !== currentBoard.id && board.title.trim().toLocaleLowerCase() === trimmedName.toLocaleLowerCase(),
+    );
 
-    if (exsistBoard) {
-      alert("Board name ist vergeben");
+    if (boardExists) {
+      showToast("error", "Board name ist bereits vergeben");
+
       return;
-    } else {
-      if (!currentBoard) return;
+    }
+    const updatedBoard = { ...currentBoard, title: trimmedName };
 
-      currentBoard.title = boardName;
+    setBoards({ type: "UPDATE_BOARD", payload: updatedBoard });
+    setEditBoard(false);
+    showToast("success", `Board Name wurde erfolgreich geändert`);
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.key === "Enter") {
+      saveBoardName();
+    } else if (e.key === "Escape") {
       setEditBoard(false);
-      showToast("success", `Board Name wurde erfolgreich geändert`);
     }
   }
 
@@ -69,17 +78,12 @@ function BoardsDetails() {
         {!editBoard ? (
           <div className="flex gap-4 items-center justify-start">
             <h4 className="text-2xl font-bold">{currentBoard.title}</h4>
-            <Button
-              onClick={() => handleEditBoardTitle(currentBoard.id)}
-              variant="ghost"
-              size={"lg"}
-              className="hover:bg-primary-hover hover:cursor-pointer p-2"
-            >
+            <Button onClick={() => handleEditBoardTitle()} variant="ghost" size={"lg"} className="hover:bg-primary-hover hover:cursor-pointer p-2">
               <Pencil className="w-4! h-4!" />
             </Button>
           </div>
         ) : (
-          <div className="flex justify-center items-center gap-2 w-80">
+          <div className="flex justify-center items-center gap-2 w-80" onKeyDown={handleKeyDown}>
             <InputButton id="boardName" value={boardName} setValue={setBoardName} placeholder="Board Name" />
 
             <Button onClick={saveBoardName} variant="ghost" size={"lg"} className="hover:bg-primary-hover hover:cursor-pointer p-2">

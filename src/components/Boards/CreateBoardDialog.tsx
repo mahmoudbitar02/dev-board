@@ -16,33 +16,37 @@ function CreateBoardDialog() {
   const [boardName, setBoardName] = useState("");
   const [open, setOpen] = useState(false);
 
+  const handleOpenChange = (isOpen: boolean) => {
+    setOpen(isOpen);
+    if (!isOpen) {
+      setBoardName("");
+    }
+  };
+
   function handleCreateBoard() {
-    const trimedBoardName = boardName.trim();
-    if (!trimedBoardName) return;
+    const trimmedBoardName = boardName.trim();
+    if (!trimmedBoardName) return;
 
-    const exsistBoard = boards.some((board) => board.title.toLocaleLowerCase() === trimedBoardName.toLocaleLowerCase());
+    const boardExists = boards.some((board) => board.title.toLocaleLowerCase() === trimmedBoardName.toLocaleLowerCase());
 
-    if (exsistBoard) {
-      alert("Board exsist");
+    if (boardExists) {
+      showToast("error", "Ein Board mit diesem Namen existiert bereits");
+      setOpen(false);
       return;
     } else {
-      const newBoard = { id: `board-${uuidv4()}`, title: boardName, tasks: [] };
+      const newBoard = { id: `board-${uuidv4()}`, title: trimmedBoardName, tasks: [] };
       showToast("success", `Board "${newBoard.title}" wurde erfolgreich erstellt`);
-
       setBoards({ type: "ADD_BOARD", payload: newBoard });
-
-      setBoardName("");
       setOpen(false);
-      console.log(newBoard);
     }
   }
   return (
     <div>
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogTrigger
           render={
             <Button className="text-black px-3 py-5 cursor-pointer">
-              <Plus />
+              <Plus className="w-4 h-4" />
               Neues Board
             </Button>
           }
@@ -58,7 +62,7 @@ function CreateBoardDialog() {
           <div className="flex justify-end gap-2">
             <DialogClose
               render={
-                <Button onClick={() => setBoardName("")} className="mt-4 text-black hover:cursor-pointer p-5" variant="outline">
+                <Button className="mt-4 text-black hover:cursor-pointer p-5" variant="outline">
                   Abbrechen
                 </Button>
               }

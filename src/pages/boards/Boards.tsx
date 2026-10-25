@@ -1,8 +1,8 @@
 // import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { useBoardContext } from "../../context/BoardContext";
-import CreateBoardDialog from "../../components/Boards/CreateBoardDialog";
+import { useBoardContext } from "@/context/BoardContext";
+import CreateBoardDialog from "@/components/Boards/CreateBoardDialog";
 import DeleteDialog from "@/components/Delete/DeleteDialog";
 
 function Boards() {
@@ -15,17 +15,19 @@ function Boards() {
         <CreateBoardDialog />
       </div>
       {boards?.length === 0 ? (
-        <div className="flex w-full items-center mt-4 text-2xl justify-center">kein Boards</div>
+        <div className="flex items-center mt-4 text-2xl justify-center">
+          <p className="border-2 border-dashed rounded-2xl p-4 border-primary">keine Boards Vorhanden</p>
+        </div>
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-4.5 ">
           {boards.map((board) => (
-            <div key={board.id} className="card flex justify-between border border-black rounded-lg p-6  hover:shadow-md relative">
+            <div key={board.id} className="card flex justify-between border border-black rounded-lg p-6  hover:shadow-md relative ">
               <Link to={board.id}>
                 <div className="flex-1 hover:cursor-pointer group">
                   <p className="font-bold group-hover:underline ">{board.title}</p>
                   <div className="flex gap-0.5 items-center text-sm text-slate-500 mt-2">
-                    <p>3 Spalten .</p>
-                    <span></span> <p>{board.tasks.length} Tasks</p>
+                    <p>3 Spalten •</p>
+                    <p>{board.tasks.length} Tasks</p>
                   </div>
                 </div>
               </Link>
@@ -39,12 +41,3 @@ function Boards() {
 }
 
 export default Boards;
-
-{
-  /* <Button
-              onClick={() => handleDeleteBoard(board.id)}
-              className="bg-transparent p-2 text-black hover:bg-primary-hover hover:cursor-pointer group"
-            >
-              <Trash2Icon className="w-4 h-4 group-hover:text-red-500" />
-            </Button> */
-}
