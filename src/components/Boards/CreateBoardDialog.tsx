@@ -37,7 +37,7 @@ function CreateBoardDialog() {
       const newBoard = { id: `board-${uuidv4()}`, title: trimmedBoardName, tasks: [] };
       showToast("success", `Board "${newBoard.title}" wurde erfolgreich erstellt`);
       setBoards({ type: "ADD_BOARD", payload: newBoard });
-      setOpen(false);
+      handleOpenChange(false);
     }
   }
   return (
