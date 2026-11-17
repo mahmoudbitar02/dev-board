@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { useBoardContext } from "@/context/BoardContext";
 import { showToast } from "@/Utils/utils";
 import { useParams } from "react-router-dom";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 const initialTaskState: Task = {
   id: "",
@@ -104,10 +105,18 @@ function CreateTask({ column, taskEdit, task }: { column?: { id: string; title: 
           </Field>
           <Field>
             <Label htmlFor="userName">User</Label>
-            <select id="userName" value={taskData.userName} onChange={(e) => handleChange("userName", e.target.value)}>
-              <option value="Niemand">Niemand</option>
-              <option value={username}>{username}</option>
-            </select>
+
+            <Select id="userName" onValueChange={(value) => handleChange("userName", String(value))} value={taskData.userName}>
+              <SelectTrigger className="w-full py-5 mt-1">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="niemand">Niemand</SelectItem>
+                  <SelectItem value={username}>{username}</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </Field>
 
           <Field>
