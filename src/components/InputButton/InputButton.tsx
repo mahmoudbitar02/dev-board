@@ -25,7 +25,7 @@ function InputButton({
           id={id}
           value={value}
           placeholder={placeholder}
-          className="w-full mt-1 py-5 max-h-70 focus-visible:border-2 focus-visible:border-primary focus-visible:ring-0 "
+          className="w-full mt-1 py-5 max-h-70 focus-visible:border-2 focus-visible:border-primary focus-visible:ring-0"
           onChange={(e) => setValue(e.target.value)}
           maxLength={maxLength}
         />

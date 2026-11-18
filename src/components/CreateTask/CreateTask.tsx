@@ -105,6 +105,7 @@ function CreateTask({ column, taskEdit, task }: { column?: { id: string; title: 
               value={taskData.description}
               setValue={(value) => handleChange("description", value)}
               placeholder="Was soll erledigt werden?"
+              maxLength={150}
             />
           </Field>
           <Field>

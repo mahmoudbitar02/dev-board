@@ -19,14 +19,14 @@ function Draggable({ task }: { task: Task }) {
           :::
         </div>
 
-        <div className="flex flex-col gap-1 ">
+        <div className="flex flex-col gap-1 pr-4 ">
           <h5 className="font-semibold text-sm text-black hover:underline hover:cursor-pointer ">
             <CreateTask taskEdit task={task} />
           </h5>
           <p>{task.description}</p>
           <div className="flex gap-1 items-center">
-            {task.userName === "" ? "" : <CircleUserRound className="w-3 h-3" />}
-            <p>{task.userName}</p>
+            {task.userName === "niemand" ? "" : <CircleUserRound className="w-3 h-3" />}
+            <p>{task.userName === "niemand" ? "" : task.userName}</p>
           </div>
           <div className={isPastDate(task.deadline) ? "flex gap-1 items-center text-red-500 font-bold" : "flex gap-1 items-center"}>
             <CalendarDays className="w-3 h-3" />
