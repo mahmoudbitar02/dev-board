@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { ChevronDownIcon, Plus } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Label } from "@/components/ui/label";
@@ -13,6 +13,10 @@ import { useBoardContext } from "@/context/BoardContext";
 import { showToast } from "@/Utils/utils";
 import { useParams } from "react-router-dom";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Calendar } from "../ui/calendar";
+import { format } from "date-fns";
+import { de } from "react-day-picker/locale";
 
 const initialTaskState: Task = {
   id: "",
@@ -121,6 +125,34 @@ function CreateTask({ column, taskEdit, task }: { column?: { id: string; title: 
 
           <Field>
             <Label htmlFor="deadline">Deadline</Label>
+
+            <Popover>
+              <PopoverTrigger
+                render={
+                  <Button
+                    variant={"outline"}
+                    data-empty={!taskData.deadline}
+                    className="w-full justify-between text-left font-normal data-[empty=true]:text-muted-foreground py-5 mt-1"
+                  >
+                    {taskData.deadline ? format(taskData.deadline, "dd.MM.yyyy") : <span>Pick a date</span>}
+                    <ChevronDownIcon data-icon="inline-end" />
+                  </Button>
+                }
+              />
+              <PopoverContent className="w-auto p-0 " align="start">
+                <Calendar
+                  mode="single"
+                  selected={taskData.deadline ? new Date(taskData.deadline) : undefined}
+                  onSelect={(value) => handleChange("deadline", value ? value.toISOString() : "")}
+                  defaultMonth={taskData.deadline ? new Date(taskData.deadline) : undefined}
+                  locale={de}
+                />
+              </PopoverContent>
+            </Popover>
+          </Field>
+
+          {/* <Field>
+            <Label htmlFor="deadline">Deadline</Label>
             <InputButton
               type="date"
               id="deadline"
@@ -128,7 +160,7 @@ function CreateTask({ column, taskEdit, task }: { column?: { id: string; title: 
               setValue={(value) => handleChange("deadline", value)}
               placeholder="Wann soll es erledigt werden?"
             />
-          </Field>
+          </Field> */}
         </FieldGroup>
 
         <div className="flex justify-end gap-2">
